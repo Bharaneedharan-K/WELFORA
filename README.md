@@ -1,8 +1,15 @@
-# 🏛️ Welfora — Blockchain-Based Farmer & Land Record Management System
+# 🌾 Land Verification & Scheme Application System - Phase 1
 
-> **Problem ID: S0718** | **Domain: Smart Governance / LegalTech**
+## 📋 Phase 1: Authentication & User Management
 
-A full-stack decentralized application that replaces fragile manual land records with **cryptographically verified, tamper-proof digital governance** — powered by the Polygon blockchain.
+This is a complete implementation of Phase 1 including:
+
+- Farmer registration with email, mobile, and district
+- Secure login with JWT authentication
+- Role-based access control (FARMER, OFFICER, ADMIN)
+- User status management
+- Officer creation by Admin
+- Admin seeding on server startup
 
 ---
 
