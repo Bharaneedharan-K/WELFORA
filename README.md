@@ -1,15 +1,6 @@
-# 🌾 Land Verification & Scheme Application System - Phase 1
+# 🏛️ Welfora — Blockchain-Based Farmer & Land Record Management System
 
-## 📋 Phase 1: Authentication & User Management
-
-This is a complete implementation of Phase 1 including:
-
-- Farmer registration with email, mobile, and district
-- Secure login with JWT authentication
-- Role-based access control (FARMER, OFFICER, ADMIN)
-- User status management
-- Officer creation by Admin
-- Admin seeding on server startup
+A full-stack decentralized application that replaces fragile manual land records with **cryptographically verified, tamper-proof digital governance** — powered by the Polygon blockchain.
 
 ---
 
@@ -107,39 +98,81 @@ React (Vite) ←→ Node.js (Express) ←→ MongoDB + Cloudinary
 
 ---
 
-## ⚡ Quick Start
+## ⚡ Complete Setup & Run Guide
 
-### Prerequisites
-- Node.js v18+
-- MetaMask Browser Extension
-- MongoDB Atlas Account
-- Cloudinary Account
+### 1. Prerequisites
+- **Node.js** v18+
+- **MetaMask** Browser Extension
+- **MongoDB Atlas** Account (for database)
+- **Cloudinary** Account (for PDF/Image storage)
+- **Google Account** (for Apps Script / Gmail Notifications)
 
-### Installation
-
+### 2. Clone the Repository
 ```bash
-# Clone the repository
 git clone https://github.com/your-username/welfora.git
-
-# Install dependencies
-cd client && npm install
-cd ../server && npm install
-cd ../blockchain && npm install
-
-# Configure environment variables
-# Copy .env.example to .env in both client/ and server/
-
-# Run the application
-cd server && npm run dev    # Backend on port 5000
-cd client && npm run dev    # Frontend on port 3000
+cd welfora
 ```
 
-### For Team Members (Testing)
-1. Install **MetaMask** browser extension
-2. Create a new wallet
-3. Add **Polygon Amoy Testnet** network
-4. Get free test MATIC from [Polygon Faucet](https://faucet.polygon.technology/)
-5. Open the hosted website link and start testing!
+### 3. Backend Setup (Node.js/Express)
+The backend handles the API, database operations, and hashing.
+```bash
+cd server
+npm install
+```
+- Create a `.env` file in the `server` directory (use `.env.example` as a template).
+- Fill in your `MONGODB_URI`, `CLOUDINARY` keys, `GEMINI_API_KEY`, etc.
+- Start the server:
+```bash
+npm run dev
+# The backend will start on http://localhost:5000
+```
+
+### 4. Frontend Setup (React/Vite)
+The frontend is the user interface for Farmers, Officers, and Admins.
+```bash
+cd client
+npm install
+```
+- Create a `.env` file in the `client` directory (if required) to set the API URL.
+- Start the development server:
+```bash
+npm run dev
+# The frontend will start on http://localhost:3000
+```
+
+### 5. Blockchain Setup (Polygon Amoy Testnet)
+The blockchain module contains the Solidity smart contract.
+```bash
+cd blockchain
+npm install
+```
+1. Create a `.env` file in the `blockchain` directory.
+2. Add your `PRIVATE_KEY` (from MetaMask) and `POLYGON_AMOY_RPC_URL`.
+3. Compile and Deploy the contract:
+```bash
+npx hardhat compile
+npx hardhat run scripts/deploy.js --network amoy
+```
+4. **Important**: Copy the deployed contract address output from the terminal and update the `SMART_CONTRACT_ADDRESS` in your `server/.env`.
+
+### 6. Google Apps Script Setup (Email Notifications)
+We use a custom Google Apps Script to send real-time email notifications for approvals, rejections, and transfers.
+1. Go to [script.google.com](https://script.google.com/) and create a New Project.
+2. Open `server/EMAIL_SETUP.md` in the repository and copy the provided `.gs` code.
+3. Paste the code into your Google Apps Script editor.
+4. Click **Deploy > New Deployment**.
+   - Select type: **Web app**
+   - Execute as: **Me**
+   - Who has access: **Anyone**
+5. Click **Deploy**, authorize the permissions, and copy the generated **Web App URL**.
+6. Paste this URL into your `server/.env` as `APPS_SCRIPT_URL=your_url_here`.
+
+### 7. MetaMask Configuration (For Testing)
+To interact with the app (Admin minting):
+1. Install **MetaMask** and create a wallet.
+2. Add the **Polygon Amoy Testnet** network to MetaMask.
+3. Get free test MATIC from the [Polygon Faucet](https://faucet.polygon.technology/).
+4. Log into the app as an Admin to start minting land hashes!
 
 ---
 
@@ -185,4 +218,4 @@ Government schemes (PM-KISAN, subsidies, insurance) are linked to **blockchain-v
 
 ## 📄 License
 
-This project is developed for academic purposes under **Problem ID S0718** (Smart Governance / LegalTech).
+This project is open-source and available under the [MIT License](LICENSE).
